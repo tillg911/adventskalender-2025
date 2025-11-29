@@ -1,0 +1,539 @@
+/* ===== CSS Variables ===== */
+:root {
+    --color-pink: #fce4ec;
+    --color-pink-dark: #f8bbd9;
+    --color-mint: #e0f2f1;
+    --color-mint-dark: #b2dfdb;
+    --color-lavender: #e8eaf6;
+    --color-lavender-dark: #c5cae9;
+    --color-peach: #fff3e0;
+    --color-peach-dark: #ffe0b2;
+    --color-sky: #e3f2fd;
+    --color-sky-dark: #bbdefb;
+    --color-cream: #fffde7;
+    --color-text: #5d4037;
+    --color-text-light: #8d6e63;
+    --font-main: 'Quicksand', sans-serif;
+    --font-christmas: 'Mountains of Christmas', cursive;
+    --shadow-soft: 0 4px 15px rgba(0, 0, 0, 0.1);
+    --shadow-hover: 0 8px 25px rgba(0, 0, 0, 0.15);
+    --border-radius: 16px;
+}
+
+/* ===== Reset & Base ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-main);
+    background: linear-gradient(135deg, var(--color-pink) 0%, var(--color-sky) 50%, var(--color-mint) 100%);
+    min-height: 100vh;
+    color: var(--color-text);
+    overflow-x: hidden;
+}
+
+/* ===== Snowflakes & Bears Animation ===== */
+.snowflakes {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.snowflake, .bear {
+    position: absolute;
+    top: -50px;
+    animation: fall linear infinite;
+    opacity: 0.8;
+}
+
+.snowflake {
+    color: white;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+}
+
+.bear {
+    font-size: 1.5em;
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(-50px) rotate(0deg);
+    }
+    100% {
+        transform: translateY(100vh) rotate(360deg);
+    }
+}
+
+/* ===== Container ===== */
+.container {
+    position: relative;
+    z-index: 2;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+/* ===== Header ===== */
+header {
+    text-align: center;
+    padding: 30px 0 40px;
+}
+
+header h1 {
+    font-family: var(--font-christmas);
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--color-text);
+    text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
+    margin-bottom: 8px;
+}
+
+header .subtitle {
+    font-size: 1.1rem;
+    color: var(--color-text-light);
+    font-weight: 500;
+}
+
+/* ===== Calendar Grid ===== */
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    padding-bottom: 40px;
+}
+
+/* ===== Door (Türchen) ===== */
+.door {
+    aspect-ratio: 1;
+    background: var(--door-color, var(--color-cream));
+    border-radius: var(--border-radius);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-christmas);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-text);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-soft);
+    border: 3px solid rgba(255, 255, 255, 0.6);
+    position: relative;
+    overflow: hidden;
+    min-height: 80px;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+}
+
+.door::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.door:active {
+    transform: scale(0.95);
+}
+
+.door.opened {
+    background: linear-gradient(135deg, var(--door-color, var(--color-cream)) 0%, rgba(255,255,255,0.8) 100%);
+    border-color: gold;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+}
+
+.door.opened::after {
+    content: '';
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 20px;
+    height: 20px;
+    background: gold;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.door.locked {
+    opacity: 0.6;
+    cursor: not-allowed;
+    filter: grayscale(30%);
+}
+
+.door.locked::after {
+    content: '🔒';
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    font-size: 0.8rem;
+}
+
+/* Door colors */
+.door[data-color="pink"] { --door-color: var(--color-pink); }
+.door[data-color="mint"] { --door-color: var(--color-mint); }
+.door[data-color="lavender"] { --door-color: var(--color-lavender); }
+.door[data-color="peach"] { --door-color: var(--color-peach); }
+.door[data-color="sky"] { --door-color: var(--color-sky); }
+.door[data-color="cream"] { --door-color: var(--color-cream); }
+
+/* ===== Modal ===== */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    position: relative;
+    background: white;
+    border-radius: 24px;
+    padding: 30px 25px;
+    max-width: 500px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    transform: scale(0.9) translateY(20px);
+    transition: transform 0.3s ease;
+}
+
+.modal.active .modal-content {
+    transform: scale(1) translateY(0);
+}
+
+.modal-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: var(--color-pink);
+    border-radius: 50%;
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text);
+    transition: all 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.modal-close:active {
+    transform: scale(0.9);
+    background: var(--color-pink-dark);
+}
+
+.modal-day {
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-text-light);
+    margin-bottom: 20px;
+}
+
+.modal-image-container {
+    width: 100%;
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    background: var(--color-cream);
+    min-height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    cursor: zoom-in;
+}
+
+/* ===== Fullscreen Image ===== */
+.fullscreen-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    cursor: zoom-out;
+}
+
+.fullscreen-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.fullscreen-overlay img {
+    max-width: 95%;
+    max-height: 95%;
+    object-fit: contain;
+}
+
+.modal-text {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: var(--color-text);
+    text-align: center;
+    padding: 10px 0;
+}
+
+/* ===== Responsive ===== */
+@media (min-width: 480px) {
+    .calendar-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    header h1 {
+        font-size: 2.5rem;
+    }
+
+    .door {
+        font-size: 2rem;
+        min-height: 100px;
+    }
+}
+
+@media (min-width: 768px) {
+    .calendar-grid {
+        grid-template-columns: repeat(6, 1fr);
+        gap: 20px;
+    }
+
+    header h1 {
+        font-size: 3rem;
+    }
+
+    .container {
+        padding: 30px;
+    }
+
+    .door {
+        font-size: 2.2rem;
+        min-height: 110px;
+    }
+
+    .door:hover:not(.locked) {
+        transform: scale(1.05);
+        box-shadow: var(--shadow-hover);
+    }
+}
+
+/* ===== Animations ===== */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+.door.shake {
+    animation: shake 0.3s ease;
+}
+
+/* ===== Sterne Animation ===== */
+.stars {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.star {
+    position: absolute;
+    color: gold;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.8), 0 0 20px rgba(255, 215, 0, 0.4);
+    animation: twinkle ease-in-out infinite;
+}
+
+@keyframes twinkle {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.2); }
+}
+
+/* ===== Glitzer-Effekt bei geöffneten Türchen ===== */
+.door.opened .sparkle {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.door.opened::before {
+    background: linear-gradient(
+        135deg,
+        rgba(255,255,255,0.6) 0%,
+        transparent 30%,
+        rgba(255, 215, 0, 0.1) 50%,
+        transparent 70%,
+        rgba(255,255,255,0.3) 100%
+    );
+    animation: shimmer 2s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+}
+
+/* ===== Lichterkette ===== */
+.lights {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 15px 0;
+    flex-wrap: wrap;
+}
+
+.light {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    animation: glow 1.5s ease-in-out infinite;
+    box-shadow: 0 0 10px currentColor, 0 0 20px currentColor;
+}
+
+.light:nth-child(5n+1) { color: #ff4444; animation-delay: 0s; }
+.light:nth-child(5n+2) { color: #44ff44; animation-delay: 0.3s; }
+.light:nth-child(5n+3) { color: #ffcc00; animation-delay: 0.6s; }
+.light:nth-child(5n+4) { color: #4444ff; animation-delay: 0.9s; }
+.light:nth-child(5n+5) { color: #ff44ff; animation-delay: 1.2s; }
+
+@keyframes glow {
+    0%, 100% { opacity: 0.4; transform: scale(0.9); }
+    50% { opacity: 1; transform: scale(1.1); }
+}
+
+/* ===== Tannenbäume (Desktop) ===== */
+.tree-left, .tree-right {
+    position: fixed;
+    bottom: 0;
+    font-size: 4rem;
+    z-index: 1;
+    opacity: 0.7;
+    display: none;
+}
+
+.tree-left {
+    left: 20px;
+}
+
+.tree-right {
+    right: 20px;
+}
+
+@media (min-width: 1100px) {
+    .tree-left, .tree-right {
+        display: block;
+    }
+}
+
+/* ===== Geschenke ===== */
+.gifts {
+    position: fixed;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 2rem;
+    z-index: 1;
+    opacity: 0.6;
+    display: none;
+}
+
+@media (min-width: 768px) {
+    .gifts {
+        display: block;
+    }
+}
+
+/* ===== Schneelandschaft ===== */
+.snow-ground {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 40px;
+    background: linear-gradient(to top, rgba(255, 255, 255, 0.9), transparent);
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* ===== Header Girlande ===== */
+.garland {
+    text-align: center;
+    font-size: 1.5rem;
+    letter-spacing: 5px;
+    margin-bottom: 10px;
+    opacity: 0.8;
+}
+
+/* ===== Accessibility ===== */
+@media (prefers-reduced-motion: reduce) {
+    .snowflake, .bear, .star {
+        animation: none;
+        display: none;
+    }
+
+    .door, .modal-content {
+        transition: none;
+    }
+
+    .light {
+        animation: none;
+        opacity: 0.8;
+    }
+}

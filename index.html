@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="theme-color" content="#fce4ec">
+    <title>Bius Adventskalender 2025</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Mountains+of+Christmas:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Sterne im Hintergrund -->
+    <div class="stars" aria-hidden="true" id="stars"></div>
+
+    <!-- Schneelandschaft am Boden -->
+    <div class="snow-ground" aria-hidden="true"></div>
+
+    <!-- Fallende Schneeflocken und Bärchen -->
+    <div class="snowflakes" aria-hidden="true" id="snowflakes"></div>
+
+    <!-- Tannenbäume (nur Desktop) -->
+    <div class="tree-left" aria-hidden="true">🎄</div>
+    <div class="tree-right" aria-hidden="true">🎄</div>
+
+    <!-- Geschenke (nur Desktop) -->
+    <div class="gifts" aria-hidden="true">🎁 🎀 🎁</div>
+
+    <div class="container">
+        <header>
+            <!-- Girlande -->
+            <div class="garland" aria-hidden="true">🌲 ⭐ 🌲 ⭐ 🌲 ⭐ 🌲</div>
+            <h1>Biu Adventskalender 2025</h1>
+            <p class="subtitle">24 schöne Erinnerungen ♥️</p>
+            <!-- Lichterkette -->
+            <div class="lights" aria-hidden="true" id="lights"></div>
+        </header>
+
+        <main>
+            <div class="calendar-grid" id="calendar-grid">
+                <!-- Türchen werden per JavaScript generiert -->
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal für Türchen-Inhalt -->
+    <div class="modal" id="modal" aria-hidden="true">
+        <div class="modal-overlay" id="modal-overlay"></div>
+        <div class="modal-content">
+            <button class="modal-close" id="modal-close" aria-label="Schließen">&times;</button>
+            <div class="modal-day" id="modal-day"></div>
+            <div class="modal-image-container">
+                <img src="" alt="" class="modal-image" id="modal-image">
+            </div>
+            <p class="modal-text" id="modal-text"></p>
+        </div>
+    </div>
+
+    <!-- Fullscreen Image Overlay -->
+    <div class="fullscreen-overlay" id="fullscreen-overlay">
+        <img src="" alt="" id="fullscreen-image">
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
