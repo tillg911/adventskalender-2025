@@ -1,5 +1,5 @@
 // ===== Konfiguration =====
-const TEST_MODE = false; // Auf false setzen für Production!
+const TEST_MODE = true; // Auf false setzen für Production!
 const YEAR = 2025;
 const STORAGE_KEY = 'jule-adventskalender-2025-opened';
 
