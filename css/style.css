@@ -329,6 +329,19 @@ header .subtitle {
     padding: 10px 0;
 }
 
+/* ===== Apple Music Player ===== */
+.modal-song {
+    width: 100%;
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+}
+
+.modal-song iframe {
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
 /* ===== Responsive ===== */
 @media (min-width: 480px) {
     .calendar-grid {

@@ -16,6 +16,7 @@ const starsContainer = document.getElementById('stars');
 const lightsContainer = document.getElementById('lights');
 const fullscreenOverlay = document.getElementById('fullscreen-overlay');
 const fullscreenImage = document.getElementById('fullscreen-image');
+const modalSong = document.getElementById('modal-song');
 
 // ===== Türchen-Farben =====
 const doorColors = ['pink', 'mint', 'lavender', 'peach', 'sky', 'cream'];
@@ -153,6 +154,25 @@ function showModal(day, data) {
     // Bild-Container ausblenden wenn kein Bild
     modalImage.parentElement.style.display = data.image ? 'flex' : 'none';
 
+    // Apple Music Player einfügen
+    if (data.song) {
+        const songUrl = data.song.includes('?') ? `${data.song}&app=music` : `${data.song}?app=music`;
+        modalSong.innerHTML = `
+            <iframe
+                allow="autoplay *; encrypted-media *; fullscreen *"
+                frameborder="0"
+                height="175"
+                style="width:100%;max-width:660px;overflow:hidden;border-radius:10px;"
+                sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation-by-user-activation"
+                src="${songUrl}">
+            </iframe>
+        `;
+        modalSong.style.display = 'flex';
+    } else {
+        modalSong.innerHTML = '';
+        modalSong.style.display = 'none';
+    }
+
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
 }
@@ -160,6 +180,9 @@ function showModal(day, data) {
 function hideModal() {
     modal.classList.remove('active');
     document.body.style.overflow = '';
+
+    // Song stoppen durch Entfernen des iframes
+    modalSong.innerHTML = '';
 }
 
 // ===== Modal Event Listeners =====
